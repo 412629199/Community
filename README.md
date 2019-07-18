@@ -1,11 +1,13 @@
 ##项目-我的idea-springboot
 
 ##资料
-https://spring.io
-https://spring.io/guides/gs/serving-web-content/
-https://github.com/412629199/Community
+[Springboot 文档](https://spring.io)
+[Springboot web](https://spring.io/guides/gs/serving-web-content/)
+[文档](https://github.com/412629199/Community)
+[Github OAuth Document](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 ##工具
-https://git-scm.com/
+[git工具下载地址](https://git-scm.com/)
+[画图软件](https://www.visual-paradigm.com/cn/download/?platform=windows&arch=64bit)
 
 ##问题以及解决方法
 
@@ -36,5 +38,7 @@ public class DemoJdbcApplication extends WebMvcConfigurationSupport {
     }
 }
 ##jquery的引用一定要放在js引用之前
+
+
   
 
