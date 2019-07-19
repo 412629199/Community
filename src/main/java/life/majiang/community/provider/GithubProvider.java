@@ -24,7 +24,6 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string =response.body().string();
-            System.out.println("String:"+string);
             String[] tokenstr=string.split("&");
             String access_token=tokenstr[0].split("=")[1];
             return access_token;

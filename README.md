@@ -8,6 +8,7 @@
 ##工具
 [git工具下载地址](https://git-scm.com/)
 [画图软件](https://www.visual-paradigm.com/cn/download/?platform=windows&arch=64bit)
+[maven库](https://mvnrepository.com/)
 
 ##问题以及解决方法
 
