@@ -2,6 +2,8 @@ package life.majiang.community.controller;
 
 import life.majiang.community.dto.AccessTokenDTO;
 import life.majiang.community.dto.GithubUser;
+import life.majiang.community.mapper.UserMapper;
+import life.majiang.community.model.User;
 import life.majiang.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Provider;
+import java.util.UUID;
 
 /**
  * 授权登录
@@ -27,6 +30,9 @@ public class AuthorizeController {
     private  String clientSecret;
     @Value("${github.redirect.uri}")
     private  String redirectUri;
+
+    @Autowired
+    private UserMapper userMapper;
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code, @RequestParam(name="state") String state, HttpServletRequest request){
         AccessTokenDTO accessTokenDTO =new AccessTokenDTO();
@@ -36,10 +42,17 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setClient_secret(clientSecret);
         String access_token=githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user=githubProvider.getUseer(access_token);
-        if(!StringUtils.isEmpty(user)){
+        GithubUser githubUser=githubProvider.getUseer(access_token);
+        if(!StringUtils.isEmpty(githubUser)){
+            User user =new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            user.setName(githubUser.getName());
+            userMapper.insert(user);
             //登陆成功，设置session
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("githubUser",githubUser);
             return "redirect:/";
         }else {
             //登录失败，重新登录
