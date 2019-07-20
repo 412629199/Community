@@ -5,7 +5,7 @@ public class User {
     private String accountId;
     private String name;
     private String token;
-    private Long gmtCreate;
+    private Long gmtCreated;
     private Long gmtModified;
 
     public Integer getId() {
@@ -40,12 +40,12 @@ public class User {
         this.token = token;
     }
 
-    public Long getGmtCreate() {
-        return gmtCreate;
+    public Long getGmtCreated() {
+        return gmtCreated;
     }
 
-    public void setGmtCreate(Long gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setGmtCreated(Long gmtCreated) {
+        this.gmtCreated = gmtCreated;
     }
 
     public Long getGmtModified() {
@@ -63,7 +63,7 @@ public class User {
                 ", accountId='" + accountId + '\'' +
                 ", name='" + name + '\'' +
                 ", token='" + token + '\'' +
-                ", gmtCreate=" + gmtCreate +
+                ", gmtCreated=" + gmtCreated +
                 ", gmtModified=" + gmtModified +
                 '}';
     }

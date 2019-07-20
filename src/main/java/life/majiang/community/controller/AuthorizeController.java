@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Provider;
 import java.util.UUID;
 
 /**
@@ -43,16 +42,17 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret(clientSecret);
         String access_token=githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser=githubProvider.getUseer(access_token);
-        if(!StringUtils.isEmpty(githubUser)){
+        if(githubUser!=null){
             User user =new User();
             user.setToken(UUID.randomUUID().toString());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
+            user.setGmtCreated(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreated());
             user.setName(githubUser.getName());
             userMapper.insert(user);
             //登陆成功，设置session
             request.getSession().setAttribute("githubUser",githubUser);
+            System.out.println(githubUser+"登录成功!");
             return "redirect:/";
         }else {
             //登录失败，重新登录
