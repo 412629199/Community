@@ -46,7 +46,7 @@ public class AuthorizeController {
         String access_token=githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser=githubProvider.getUseer(access_token);
         //登录成功
-        if(githubUser!=null){
+        if(githubUser!=null&&githubUser.getId()!=null){
             //创建user对象
             User user =new User();
             //定义token
