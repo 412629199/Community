@@ -1,23 +1,24 @@
 package life.majiang.community.controller;
-
-import jdk.nashorn.internal.parser.Token;
+import life.majiang.community.dto.QuestionDTO;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
+import life.majiang.community.service.QestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class IndexController {
     @Autowired
     private UserMapper userMapper;
+   @Autowired
+   private QestionService qestionService;
     @GetMapping(value = "/")
-    public  String Index (HttpServletRequest request){
+    public  String Index (HttpServletRequest request, Model model){
         //获取cookie得到数组
         Cookie[] cookies = request.getCookies();
         if (cookies!=null&&cookies.length!=0)
@@ -37,8 +38,9 @@ public class IndexController {
                     break;
                 }
             }
-
-
+        //查询questionDTOList 将其设置在model中
+            List<QuestionDTO> questionDTOList=qestionService.questionDTOList();
+            model.addAttribute("question",questionDTOList);
         return "index";
     }
 }

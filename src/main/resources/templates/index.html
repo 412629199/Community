@@ -53,16 +53,16 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon glyphicon-list " aria-hidden="true">发现</span></h2>
             <hr >
-            <div class="media">
+            <div class="media" th:each="questions:${question}">
                 <div class="media-left">
                     <a href="#">
-                        <img  src="https://avatars0.githubusercontent.com/u/52899162?v=4" class="media-object img-rounded" >
+                        <img  th:src="${questions.user.avatarUrl}" class="media-object img-rounded" >
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">第一次发布问题</h4>
-                    第一次在菜鸟社区发布问题<br>
-                    <span class="text-desc">3人关注.3人评论.时间:2019-7-24 10:34:00</span>
+                    <h4 class="media-heading" th:text="${questions.title}"></h4>
+                    <span th:text="${questions.discription}"></span><br>
+                    <span class="text-desc"><span th:text="${questions.commentCount}"></span>人回复•<span th:text="${questions.viewCount}"></span>次浏览• <span th:text="${#dates.format(questions.user.gmtCreated,'yyyy-MM-dd HH:mm:ss')}"></span></span>
 
                 </div>
             </div>
