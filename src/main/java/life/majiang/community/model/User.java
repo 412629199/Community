@@ -1,5 +1,8 @@
 package life.majiang.community.model;
 
+import lombok.Data;
+
+@Data
 public class User {
     private Integer id;
     private String accountId;
@@ -7,6 +10,7 @@ public class User {
     private String token;
     private Long gmtCreated;
     private Long gmtModified;
+    private String avatarUrl;
 
     public Integer getId() {
         return id;
@@ -56,6 +60,14 @@ public class User {
         this.gmtModified = gmtModified;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -65,6 +77,7 @@ public class User {
                 ", token='" + token + '\'' +
                 ", gmtCreated=" + gmtCreated +
                 ", gmtModified=" + gmtModified +
+                ", avatar='" + avatarUrl + '\'' +
                 '}';
     }
 }

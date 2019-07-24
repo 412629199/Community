@@ -1,8 +1,11 @@
 package life.majiang.community.dto;
 
+import lombok.Data;
+
 /**
  * 问题
  */
+@Data
 public class Question {
     private String title;
     private String  discription;

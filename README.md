@@ -9,7 +9,7 @@
 [git工具下载地址](https://git-scm.com/)
 [画图软件](https://www.visual-paradigm.com/cn/download/?platform=windows&arch=64bit)
 [maven库](https://mvnrepository.com/)
-
+[lombok](https://www.projectlombok.org/setup)
 ##问题以及解决方法
 
 在templates中写的页面使用idea提示的浏览器访问没有问题但是idea中
