@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,17 +38,12 @@ public class QestionService {
             //页数小于1 等时候也显示第一页
             page=1;
         }
-        if(paginationDTO.getTotalPage()==null){
-            page=1;
-        }else {
+        if(paginationDTO.getTotalPage()!=null){
             if(page>paginationDTO.getTotalPage()){
                 //当页数大于最大页的时候显示最后一页
                 page=paginationDTO.getTotalPage();
-                System.out.println(" function is  run :2");
-
             }
         }
-
 
         //设置offSet
         Integer offSet=size*(page-1);

@@ -47,7 +47,6 @@ public class IndexController {
             }
         //查询paginationDTO 将其设置在model中
             PaginationDTO pagination=qestionService.questionDTOList(page,size);
-
             model.addAttribute("pagination",pagination);
         return "index";
     }
