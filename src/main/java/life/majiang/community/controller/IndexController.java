@@ -2,7 +2,7 @@ package life.majiang.community.controller;
 import life.majiang.community.dto.PaginationDTO;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
-import life.majiang.community.service.QestionService;
+import life.majiang.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class IndexController {
     @Autowired
     private UserMapper userMapper;
    @Autowired
-   private QestionService qestionService;
+   private QuestionService questionService;
     @GetMapping(value = "/")
     public  String Index (HttpServletRequest request, Model model,
                           @RequestParam(value = "page" ,defaultValue = "1") Integer page,
@@ -28,7 +28,7 @@ public class IndexController {
                           ){
         //获取cookie得到数组
         Cookie[] cookies = request.getCookies();
-        if (cookies!=null&&cookies.length!=0)
+        if (cookies!=null&&cookies.length!=0){
             //遍历数组
             for (Cookie cookie : cookies) {
                 //获取cookie的name
@@ -45,8 +45,10 @@ public class IndexController {
                     break;
                 }
             }
+        }
+
         //查询paginationDTO 将其设置在model中
-            PaginationDTO pagination=qestionService.questionDTOList(page,size);
+            PaginationDTO pagination= questionService.questionDTOList(page,size);
             model.addAttribute("pagination",pagination);
         return "index";
     }

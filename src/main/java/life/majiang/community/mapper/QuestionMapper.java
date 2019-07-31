@@ -32,4 +32,22 @@ public interface QuestionMapper {
      */
     @Select("select count(1) from question")
     Integer count();
+
+    /**
+     * 根据用户id查找question数据
+     * @param userId 用户id
+     * @param offSet 偏移量
+     * @param size 每页展示多少
+     * @return 返回question集合
+     */
+    @Select("select  * from question where creator = #{userId} limit #{offSet},#{size}")
+    List<Question> listByUserId(@RequestParam(name = "userId") Integer userId,@RequestParam(name = "offSet") Integer offSet,@RequestParam(name = "size") Integer size);
+
+    /**
+     * 根据用户id统计问题个数
+     * @param userId 用户id
+     * @return 用户问题数量
+     */
+    @Select("select count(1) from question where creator = #{userId}")
+    Integer countByUserId(@RequestParam(name = "userId") Integer userId);
 }

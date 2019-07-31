@@ -21,6 +21,6 @@ body{
     font-weight: normal;
     color: #999;
 }
-.profile .section{
-    margin-top: 35px;
+#section{
+    margin-top: 15px;
 }
