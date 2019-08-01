@@ -19,7 +19,7 @@
             <div class="media" th:each="questions:${pagination.questionDTOList}">
                 <div class="media-left">
                     <a href="#">
-                        <img  th:src="${questions.user.avatarUrl}" class="media-object img-rounded" >
+                        <img  th:src="${questions.user.avatarUrl}" class="media-object img-rounded" th:width="60px" th:height="60px">
                     </a>
                 </div>
                 <div class="media-body">
