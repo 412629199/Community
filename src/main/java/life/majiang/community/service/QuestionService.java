@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,6 +101,7 @@ public class QuestionService {
 
         //获取所有的question 并且传入参数
         List<Question>questionList=questionMapper.listByUserId(userId,offSet,size);
+        System.out.println("question:"+questionList);
         //创建questionDTOlist
         List<QuestionDTO>questionDTOList=new ArrayList<>();
 
@@ -121,5 +124,17 @@ public class QuestionService {
         paginationDTO.setQuestionDTOList(questionDTOList);
         //返回paginationDTO
         return  paginationDTO;
+    }
+
+    public QuestionDTO getById(Integer id) {
+       Question question= questionMapper.getById(id);
+        //创建QuestionDTO对象
+        QuestionDTO questionDTO= new QuestionDTO();
+        //通过spring中的BeanUtils工具复制question到questionDTO
+        BeanUtils.copyProperties(question,questionDTO);
+        //查询登录的用户
+        User user=userMapper.findById(question.getCreator());
+        questionDTO.setUser(user);
+        return  questionDTO;
     }
 }

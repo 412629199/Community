@@ -1,12 +1,12 @@
 package life.majiang.community.dto;
 
-import lombok.Data;
 
 /**
  * 问题
  */
-@Data
+
 public class Question {
+    private Integer id;
     private String title;
     private String  discription;
     private String gmtCreated;
@@ -16,6 +16,14 @@ public class Question {
     private Integer viewCount ;
     private Integer likeCount;
     private String tag;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -89,18 +97,4 @@ public class Question {
         this.tag = tag;
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "title='" + title + '\'' +
-                ", discription='" + discription + '\'' +
-                ", gmtCreated='" + gmtCreated + '\'' +
-                ", gmtModified='" + gmtModified + '\'' +
-                ", creator=" + creator +
-                ", commentCount=" + commentCount +
-                ", viewCount=" + viewCount +
-                ", likeCount=" + likeCount +
-                ", tag='" + tag + '\'' +
-                '}';
-    }
 }

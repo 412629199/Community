@@ -19,11 +19,13 @@
             <div class="media" th:each="questions:${pagination.questionDTOList}">
                 <div class="media-left">
                     <a href="#">
-                        <img  th:src="${questions.user.avatarUrl}" class="media-object img-rounded" th:width="60px" th:height="60px">
+                        <img  th:src="${questions.user.avatarUrl}" class="media-object img-rounded" >
                     </a>
                 </div>
                 <div class="media-body">
-                    <a href="#"><h4 class="media-heading" th:text="${questions.title}"></h4></a>
+                    <h4 class="media-heading" >
+                        <a th:href="@{'/question/'+${questions.user.id}}" th:text="${questions.title}"></a>
+                    </h4>
                     <span th:text="${questions.discription}"></span><br>
                     <span class="text-desc"><span th:text="${questions.commentCount}"></span>人回复•<span th:text="${questions.viewCount}"></span>次浏览• <span th:text="${#dates.format(questions.user.gmtCreated,'yyyy-MM-dd HH:mm:ss')}"></span></span>
 

@@ -1,6 +1,7 @@
 package life.majiang.community.mapper;
 
 import life.majiang.community.dto.Question;
+import life.majiang.community.dto.QuestionDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -23,7 +24,7 @@ public interface QuestionMapper {
      * @param size 每页展示的数量
      * @return
      */
-    @Select("select  * from question limit #{offSet},#{size}")
+    @Select("select  * from question order By gmt_created desc limit #{offSet},#{size}")
     List<Question> list(@RequestParam(name = "offSet") Integer offSet,@RequestParam(name = "size") Integer size);
 
     /**
@@ -50,4 +51,12 @@ public interface QuestionMapper {
      */
     @Select("select count(1) from question where creator = #{userId}")
     Integer countByUserId(@RequestParam(name = "userId") Integer userId);
+
+    /**
+     * 根据问题的id获取信息
+     * @param id question.id
+     * @return question info
+     */
+    @Select("select * from  question where id = #{id} ")
+    Question getById(@RequestParam(name = "id") Integer id);
 }
