@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @Service
 public class SessionInterceptor implements HandlerInterceptor {
-
     @Autowired
     private UserMapper userMapper;
     @Override
@@ -24,7 +23,7 @@ public class SessionInterceptor implements HandlerInterceptor {
             //遍历数组
             for (Cookie cookie : cookies) {
                 //获取cookie的name
-                if (cookie.getName().equals("token")){//和token一直
+                if (cookie.getName().equals("token")){
                     //拿到cookie的值
                     String token = cookie.getValue();
                     //通过cookie的值token查询登录者

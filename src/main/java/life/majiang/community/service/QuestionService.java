@@ -60,13 +60,17 @@ public class QuestionService {
         for (Question question : questionList) {
 
             //查询登录的用户
-            User user=userMapper.findById(question.getCreator());
+            User user=userMapper.findById(question.getId());
             //创建QuestionDTO对象
             QuestionDTO questionDTO= new QuestionDTO();
             //通过spring中的BeanUtils工具复制question到questionDTO
             BeanUtils.copyProperties(question,questionDTO);
-            //将将查询到的user设置到questionDTO
-            questionDTO.setUser(user);
+            if(user!=null){
+                //将将查询到的user设置到questionDTO
+                questionDTO.setUser(user);
+            }else {
+                questionDTO.setUser(new User());
+            }
             //将questionDTO添加到集合中
             questionDTOList.add(questionDTO);
 
@@ -101,7 +105,6 @@ public class QuestionService {
 
         //获取所有的question 并且传入参数
         List<Question>questionList=questionMapper.listByUserId(userId,offSet,size);
-        System.out.println("question:"+questionList);
         //创建questionDTOlist
         List<QuestionDTO>questionDTOList=new ArrayList<>();
 
@@ -115,7 +118,12 @@ public class QuestionService {
             //通过spring中的BeanUtils工具复制question到questionDTO
             BeanUtils.copyProperties(question,questionDTO);
             //将将查询到的user设置到questionDTO
-            questionDTO.setUser(user);
+            if(user!=null){
+                //将将查询到的user设置到questionDTO
+                questionDTO.setUser(user);
+            }else {
+                questionDTO.setUser(new User());
+            }
             //将questionDTO添加到集合中
             questionDTOList.add(questionDTO);
 
@@ -134,7 +142,12 @@ public class QuestionService {
         BeanUtils.copyProperties(question,questionDTO);
         //查询登录的用户
         User user=userMapper.findById(question.getCreator());
-        questionDTO.setUser(user);
+        if(user!=null){
+            //将将查询到的user设置到questionDTO
+            questionDTO.setUser(user);
+        }else {
+            questionDTO.setUser(new User());
+        }
         return  questionDTO;
     }
 }

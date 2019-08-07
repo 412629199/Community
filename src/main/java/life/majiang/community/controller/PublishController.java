@@ -51,7 +51,6 @@ public class PublishController {
             return "publish";
         }
         User user=(User) request.getSession().getAttribute("user");
-
         //创建question对象
         Question question=new Question();
         question.setTitle(title);

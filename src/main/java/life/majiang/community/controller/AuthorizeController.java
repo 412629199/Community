@@ -5,6 +5,7 @@ import life.majiang.community.dto.GithubUser;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
 import life.majiang.community.provider.GithubProvider;
+import life.majiang.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 /**
@@ -25,18 +25,20 @@ import java.util.UUID;
 public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
-
     @Value("${github.client.id}")
     private  String clientId;
     @Value("${github.client.secret}")
     private  String clientSecret;
     @Value("${github.redirect.uri}")
     private  String redirectUri;
-
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
     @GetMapping("/callback")
-    public String callback(@RequestParam(name = "code") String code, @RequestParam(name="state") String state, HttpServletRequest request, HttpServletResponse response){
+    public String callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name="state") String state,
+                           HttpServletRequest request,
+                           HttpServletResponse response
+                                                        ){
         AccessTokenDTO accessTokenDTO =new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setCode(code);
@@ -54,12 +56,10 @@ public class AuthorizeController {
             //将属性设置到user中
             user.setToken(token);
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreated(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreated());
             user.setName(githubUser.getName());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            //将user插入数据库中
-            userMapper.insert(user);
+            //将user插入数据库中或者更新数据库
+            userService.crateOrUpdate(user);
             //同时设置cookie-token属性
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
